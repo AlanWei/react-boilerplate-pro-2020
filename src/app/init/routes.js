@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
+import NormalLayout from '../../layouts/normal';
 import Loading from '../../views/loading';
 
 const Login = lazy(() => import('../../views/login'));
@@ -21,7 +22,9 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <Login />
+        <NormalLayout>
+          <Login />
+        </NormalLayout>
       </Suspense>
     ),
   },

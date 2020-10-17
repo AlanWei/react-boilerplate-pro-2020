@@ -16,7 +16,7 @@ const PREFIX_CLS = 'view-login';
 const ENGLISH = 'English';
 const CHINESE = '中文';
 
-export default function Login() {
+const Login = () => {
   // i18n
   const currentLanguage = i18n.language;
   const { t } = useTranslation();
@@ -116,4 +116,6 @@ export default function Login() {
       {renderIntlSwitch()}
     </div>
   );
-}
+};
+
+export default Login;
