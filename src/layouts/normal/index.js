@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
+const PREFIX_CLS = 'layout-normal';
+
 const NormalLayout = ({ children }) => (
-  <div className="normalLayout">{children}</div>
+  <div className={PREFIX_CLS}>{children}</div>
 );
 
 NormalLayout.propTypes = {
