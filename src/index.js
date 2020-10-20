@@ -1,4 +1,5 @@
 import { render } from 'react-dom';
+import { createBrowserHistory } from 'history';
 import { createStore, createApp } from './app';
 import './i18n';
 
@@ -7,7 +8,9 @@ import './styles/index.scss';
 
 const RENDER_CONTAINER = document.getElementById('app');
 
-const store = createStore();
-const app = createApp(store);
+const history = createBrowserHistory();
+
+const store = createStore(history);
+const app = createApp(store, history);
 
 render(app, RENDER_CONTAINER);

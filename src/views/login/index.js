@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import isEmpty from 'lodash/isEmpty';
 
-import { loginUser, selectError } from './loginSlice';
+import { loginUser, selectError, selectIsLogin } from './loginSlice';
 import i18n from '../../i18n';
 
 import logo from '../../assets/logo.svg';
@@ -23,7 +24,17 @@ const Login = () => {
 
   // redux
   const dispatch = useDispatch();
+  const isLogin = useSelector(selectIsLogin);
   const errorMsg = useSelector(selectError);
+
+  // check login
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(push('/outlets'));
+    }
+  }, [isLogin]);
+
+  // state
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
