@@ -30,6 +30,13 @@ const routes = [
       </Suspense>
     ),
   },
+  {
+    component: () => (
+      <BasicLayout>
+        <div>404</div>
+      </BasicLayout>
+    ),
+  },
 ];
 
 export default routes;

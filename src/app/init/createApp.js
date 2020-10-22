@@ -13,7 +13,6 @@ const createApp = (store, history) => (
         {map(routes, (route, idx) => (
           <Route key={idx} {...route} />
         ))}
-        <Route render={() => <div>404</div>} />
       </Switch>
     </ConnectedRouter>
   </Provider>

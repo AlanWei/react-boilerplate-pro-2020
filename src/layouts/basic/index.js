@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import { Dropdown, Avatar, Menu, Popover } from 'antd';
@@ -11,6 +13,7 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import menuData from '../../app/init/menus';
+import { formatMenuPath, formatSelectedKeys } from './menuUtils';
 
 import logo from '../../assets/logo.svg';
 import './styles.scss';
@@ -20,23 +23,18 @@ const { SubMenu } = Menu;
 const PREFIX_CLS = 'layout-basic';
 const BASE_URL = '/';
 
-const formatMenuPath = (data, parentPath = '/') =>
-  map(data, (item) => {
-    const result = {
-      ...item,
-      path: `${parentPath}${item.path}`,
-    };
-    if (item.children) {
-      result.children = formatMenuPath(
-        item.children,
-        `${parentPath}${item.path}/`,
-      );
-    }
-    return result;
+const BasicLayout = ({ children }) => {
+  const { t } = useTranslation();
+
+  // pathname
+  const pathname = useSelector((state) => {
+    return state.router.location.pathname;
   });
 
-const BasicLayout = () => {
-  const { t } = useTranslation();
+  const selectedKeys = formatSelectedKeys(formatMenuPath(menuData), pathname);
+
+  const [openKeys, setOpenKeys] = useState(selectedKeys);
+
   // TODO: fetch notices
   const notices = [];
 
@@ -82,6 +80,9 @@ const BasicLayout = () => {
           style={{ padding: '16px 0', width: '100%' }}
           mode="inline"
           theme="dark"
+          openKeys={openKeys}
+          onOpenChange={setOpenKeys}
+          selectedKeys={selectedKeys}
         >
           {renderMenu(formatMenuPath(menuData))}
         </Menu>
@@ -164,8 +165,17 @@ const BasicLayout = () => {
     );
   };
 
+  const renderPageContent = () => {
+    return <div className={`${PREFIX_CLS}-mainContent`}>{children}</div>;
+  };
+
   const renderContent = () => {
-    return <div className={`${PREFIX_CLS}-content`}>{renderHeader()}</div>;
+    return (
+      <div className={`${PREFIX_CLS}-content`}>
+        {renderHeader()}
+        {renderPageContent()}
+      </div>
+    );
   };
 
   return (
@@ -174,6 +184,10 @@ const BasicLayout = () => {
       {renderContent()}
     </div>
   );
+};
+
+BasicLayout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default BasicLayout;

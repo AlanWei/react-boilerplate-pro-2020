@@ -84,4 +84,9 @@
   &-noticeIcon {
     font-size: $font-size-lg;
   }
+
+  &-mainContent {
+    flex: 1;
+    margin: 24px 24px 0;
+  }
 }
