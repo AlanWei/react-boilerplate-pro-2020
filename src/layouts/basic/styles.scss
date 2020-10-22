@@ -26,6 +26,13 @@
       font-weight: bold;
       font-size: 20px;
     }
+    &-body {
+      flex: 1;
+      box-flex: 1;
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      background: #001529;
+    }
   }
 
   &-content {

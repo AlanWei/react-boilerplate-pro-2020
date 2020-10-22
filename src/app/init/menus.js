@@ -1,7 +1,14 @@
+import React from 'react';
+import {
+  DashboardOutlined,
+  ShopOutlined,
+  TableOutlined,
+} from '@ant-design/icons';
+
 const menuData = [
   {
     name: 'siderMenu_dashboard',
-    icon: 'dashboard',
+    icon: <DashboardOutlined />,
     path: 'dashboard',
     children: [
       {
@@ -26,12 +33,12 @@ const menuData = [
   },
   {
     name: 'siderMenu_outlets',
-    icon: 'shop',
+    icon: <ShopOutlined />,
     path: 'outlets',
   },
   {
     name: 'siderMenu_exception',
-    icon: 'table',
+    icon: <TableOutlined />,
     path: 'exception',
     children: [
       {

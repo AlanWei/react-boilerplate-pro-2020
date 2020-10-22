@@ -10,12 +10,30 @@ import {
   LogoutOutlined,
   BellOutlined,
 } from '@ant-design/icons';
+import menuData from '../../app/init/menus';
 
 import logo from '../../assets/logo.svg';
 import './styles.scss';
 
+const { SubMenu } = Menu;
+
 const PREFIX_CLS = 'layout-basic';
 const BASE_URL = '/';
+
+const formatMenuPath = (data, parentPath = '/') =>
+  map(data, (item) => {
+    const result = {
+      ...item,
+      path: `${parentPath}${item.path}`,
+    };
+    if (item.children) {
+      result.children = formatMenuPath(
+        item.children,
+        `${parentPath}${item.path}/`,
+      );
+    }
+    return result;
+  });
 
 const BasicLayout = () => {
   const { t } = useTranslation();
@@ -31,7 +49,45 @@ const BasicLayout = () => {
     </Link>
   );
 
-  const renderSiderBody = () => {};
+  const renderMenu = (data) => {
+    const title = (item) => (
+      <span>
+        <span>{item.icon ? item.icon : null}</span>
+        <span>{t(item.name)}</span>
+      </span>
+    );
+
+    return map(data, (item) => {
+      if (item.children) {
+        return (
+          <SubMenu key={item.path} title={title(item)}>
+            {renderMenu(item.children)}
+          </SubMenu>
+        );
+      }
+      return (
+        <Menu.Item key={item.path}>
+          <Link to={item.path} href={item.path}>
+            {title(item)}
+          </Link>
+        </Menu.Item>
+      );
+    });
+  };
+
+  const renderSiderBody = () => {
+    return (
+      <div className={`${PREFIX_CLS}-sider-body`}>
+        <Menu
+          style={{ padding: '16px 0', width: '100%' }}
+          mode="inline"
+          theme="dark"
+        >
+          {renderMenu(formatMenuPath(menuData))}
+        </Menu>
+      </div>
+    );
+  };
 
   const renderSider = () => {
     return (
