@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import Cookie from 'js-cookie';
-import isNil from 'lodash/isNil';
 import api from '../../utils/api';
+import { isLogin, getUser, login, logout } from '../../utils/cookie';
 
 const PAGE_PREFIX = 'login';
 
@@ -17,11 +16,17 @@ export const loginSlice = createSlice({
   name: PAGE_PREFIX,
   initialState: {
     status: 'idle',
-    user: {},
-    isLogin: !isNil(Cookie.get('user')),
+    user: getUser() || {},
+    isLogin: isLogin(),
     error: '',
   },
-  reducers: {},
+  reducers: {
+    logoutUser: (state) => {
+      logout();
+      state.isLogin = false;
+      state.user = {};
+    },
+  },
   extraReducers: {
     [loginUser.pending]: (state) => {
       state.status = 'loading';
@@ -29,9 +34,9 @@ export const loginSlice = createSlice({
     [loginUser.fulfilled]: (state, action) => {
       const user = action.payload;
       state.status = 'succeeded';
-      state.user = user;
+      login(user);
       state.isLogin = true;
-      Cookie.set('user', JSON.stringify(user));
+      state.user = user;
     },
     [loginUser.rejected]: (state, action) => {
       state.status = 'failed';

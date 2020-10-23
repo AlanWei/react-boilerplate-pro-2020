@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import { Dropdown, Avatar, Menu, Popover } from 'antd';
@@ -13,6 +13,7 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import menuData from '../../app/init/menus';
+import { loginSlice } from '../../views/login/loginSlice';
 import { formatMenuPath, formatSelectedKeys } from './menuUtils';
 
 import logo from '../../assets/logo.svg';
@@ -24,6 +25,7 @@ const PREFIX_CLS = 'layout-basic';
 const BASE_URL = '/';
 
 const BasicLayout = ({ children }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   // pathname
@@ -117,6 +119,10 @@ const BasicLayout = ({ children }) => {
     ))
   );
 
+  const handleLogout = () => {
+    dispatch(loginSlice.actions.logoutUser());
+  };
+
   const userMenu = (
     <Menu>
       <Menu.Item disabled className={`${PREFIX_CLS}-userMenuItem`}>
@@ -133,8 +139,7 @@ const BasicLayout = ({ children }) => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item className={`${PREFIX_CLS}-userMenuItem`}>
-        {/* logout */}
-        <div role="presentation">
+        <div role="presentation" onClick={handleLogout}>
           <LogoutOutlined className={`${PREFIX_CLS}-userMenuIcon`} />
           <span>{t('basicLayout_logout')}</span>
         </div>
