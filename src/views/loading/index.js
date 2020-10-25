@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import './style.scss';
+import './styles.scss';
 
 const Loading = memo(() => <div className="loading">Loading...</div>);
 

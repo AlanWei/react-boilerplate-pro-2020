@@ -6,10 +6,7 @@ const PAGE_PREFIX = 'login';
 
 export const loginUser = createAsyncThunk(
   `${PAGE_PREFIX}/loginUser`,
-  async (userData) => {
-    const response = await api.post('/login', userData);
-    return response;
-  },
+  (userData) => api.post('/login', userData),
 );
 
 export const loginSlice = createSlice({

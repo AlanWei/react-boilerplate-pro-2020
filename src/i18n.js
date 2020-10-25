@@ -38,6 +38,7 @@ const resources = {
       outletDetail_notificationTitle: 'Notification Title',
       outletDetail_notificationContent:
         'Notification will dismiss after {seconds}s.',
+      workingInProgress: 'Working in progress',
     },
   },
   zh: {
@@ -73,6 +74,7 @@ const resources = {
       outletDetail_showNotification: '显示通知',
       outletDetail_notificationTitle: '通知标题',
       outletDetail_notificationContent: '通知会在 {seconds} 秒后消失.',
+      workingInProgress: '正在建设中',
     },
   },
 };

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { push } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
@@ -13,7 +14,7 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import menuData from '../../app/init/menus';
-import { loginSlice } from '../../views/login/loginSlice';
+import { loginSlice, selectIsLogin } from '../../views/login/loginSlice';
 import { formatMenuPath, formatSelectedKeys } from './menuUtils';
 
 import logo from '../../assets/logo.svg';
@@ -27,6 +28,14 @@ const BASE_URL = '/';
 const BasicLayout = ({ children }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  // check login
+  const isLogin = useSelector(selectIsLogin);
+  useEffect(() => {
+    if (!isLogin) {
+      dispatch(push('/login'));
+    }
+  }, [isLogin]);
 
   // pathname
   const pathname = useSelector((state) => {

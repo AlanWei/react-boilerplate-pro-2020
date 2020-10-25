@@ -5,6 +5,7 @@ import NormalLayout from '../../layouts/normal';
 import BasicLayout from '../../layouts/basic';
 
 const Login = lazy(() => import('../../views/login'));
+const WIP = lazy(() => import('../../views/workingInProgress'));
 const Outlets = lazy(() => import('../../views/outlets'));
 
 const routes = [
@@ -16,6 +17,39 @@ const routes = [
         <NormalLayout>
           <Login />
         </NormalLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/dashboard/analysis/realtime',
+    exact: true,
+    component: () => (
+      <Suspense fallback={<Loading />}>
+        <BasicLayout>
+          <WIP />
+        </BasicLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/dashboard/analysis/offline',
+    exact: true,
+    component: () => (
+      <Suspense fallback={<Loading />}>
+        <BasicLayout>
+          <WIP />
+        </BasicLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/dashboard/workplace',
+    exact: true,
+    component: () => (
+      <Suspense fallback={<Loading />}>
+        <BasicLayout>
+          <WIP />
+        </BasicLayout>
       </Suspense>
     ),
   },
