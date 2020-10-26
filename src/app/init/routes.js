@@ -7,6 +7,7 @@ import BasicLayout from '../../layouts/basic';
 const Login = lazy(() => import('../../views/login'));
 const WIP = lazy(() => import('../../views/workingInProgress'));
 const Outlets = lazy(() => import('../../views/outlets'));
+const OutletDetail = lazy(() => import('../../views/outletDetail'));
 
 const routes = [
   {
@@ -60,6 +61,17 @@ const routes = [
       <Suspense fallback={<Loading />}>
         <BasicLayout>
           <Outlets />
+        </BasicLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/outlets/:id',
+    exact: true,
+    component: () => (
+      <Suspense fallback={<Loading />}>
+        <BasicLayout>
+          <OutletDetail />
         </BasicLayout>
       </Suspense>
     ),
