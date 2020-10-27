@@ -30,7 +30,6 @@ export const outletDetailSlice = createSlice({
   },
 });
 
-export const selectStatus = (state) => state[PAGE_PREFIX].status;
 export const selectOutlet = (state) => state[PAGE_PREFIX].outlet;
 
 export default outletDetailSlice.reducer;

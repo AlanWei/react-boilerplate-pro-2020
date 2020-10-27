@@ -14,6 +14,12 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import menuData from '../../app/init/menus';
+import Notification from '../../components/notification';
+import {
+  appSlice,
+  selectNotificationTitle,
+  selectNotificationContent,
+} from '../../app/init/appSlice';
 import { loginSlice, selectIsLogin } from '../../views/login/loginSlice';
 import { formatMenuPath, formatSelectedKeys } from './menuUtils';
 
@@ -192,10 +198,29 @@ const BasicLayout = ({ children }) => {
     );
   };
 
+  const renderNotification = () => {
+    const title = useSelector(selectNotificationTitle);
+    const content = useSelector(selectNotificationContent);
+    const { resetNotification } = appSlice.actions;
+
+    if (isEmpty(title) && isEmpty(content)) {
+      return null;
+    }
+
+    return (
+      <Notification
+        title={title}
+        content={content}
+        onDismiss={() => dispatch(resetNotification())}
+      />
+    );
+  };
+
   return (
     <div className={PREFIX_CLS}>
       {renderSider()}
       {renderContent()}
+      {renderNotification()}
     </div>
   );
 };

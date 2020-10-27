@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 import map from 'lodash/map';
-import { getOutlets, selectStatus, selectOutlets } from './outletsSlice';
+import { getOutlets, selectOutlets } from './outletsSlice';
 
 import './styles.scss';
 
@@ -12,13 +12,12 @@ const { Meta } = Card;
 const PREFIX_CLS = 'view-outlets';
 
 const Outlets = () => {
-  const outlets = useSelector(selectOutlets);
-  const status = useSelector(selectStatus);
-
   const dispatch = useDispatch();
-  if (status === 'idle') {
+  useEffect(() => {
     dispatch(getOutlets());
-  }
+  }, []);
+
+  const outlets = useSelector(selectOutlets);
 
   return (
     <div className={`${PREFIX_CLS}-outlets`}>

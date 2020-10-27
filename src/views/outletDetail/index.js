@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { matchPath } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, Button, Tag } from 'antd';
 import map from 'lodash/map';
-import { getOutlet, selectStatus, selectOutlet } from './outletDetailSlice';
+import { appSlice } from '../../app/init/appSlice';
+import { DEFAULT_NOTIFICATION_TIMEOUT_IN_SECONDS } from '../../app/const';
+import { getOutlet, selectOutlet } from './outletDetailSlice';
 
 import './styles.scss';
 
@@ -13,6 +15,7 @@ const PREFIX_CLS = 'view-outletDetail';
 function OutletDetail() {
   const { t } = useTranslation();
 
+  const dispatch = useDispatch();
   const pathname = useSelector((state) => {
     return state.router.location.pathname;
   });
@@ -20,14 +23,22 @@ function OutletDetail() {
     path: '/outlets/:id',
   });
   const outletId = params.id;
+  useEffect(() => {
+    dispatch(getOutlet(outletId));
+  }, []);
 
   const outlet = useSelector(selectOutlet);
-  const status = useSelector(selectStatus);
 
-  const dispatch = useDispatch();
-  if (status === 'idle') {
-    dispatch(getOutlet(outletId));
-  }
+  const showNotification = () => {
+    dispatch(
+      appSlice.actions.updateNotification({
+        title: t('outletDetail_notificationTitle'),
+        content: t('outletDetail_notificationContent', {
+          seconds: DEFAULT_NOTIFICATION_TIMEOUT_IN_SECONDS,
+        }),
+      }),
+    );
+  };
 
   return (
     <div className={`${PREFIX_CLS}`}>
@@ -60,8 +71,11 @@ function OutletDetail() {
           ))}
         </div>
       </Card>
-      {/** TODO: Show Notification */}
-      <Button className={`${PREFIX_CLS}-notificationBtn`} type="primary">
+      <Button
+        className={`${PREFIX_CLS}-notificationBtn`}
+        type="primary"
+        onClick={showNotification}
+      >
         {t('outletDetail_showNotification')}
       </Button>
     </div>
