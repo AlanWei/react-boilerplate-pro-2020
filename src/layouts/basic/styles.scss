@@ -108,6 +108,16 @@
     text-align: center;
   }
 
+  &-pageHeader {
+    padding: 16px 32px 0;
+    background: $grey-1;
+    border-bottom: 1px solid $shadow-color-light;
+  }
+  &-pageTitle {
+    font-size: $font-size-xl;
+    margin-bottom: 16px;
+  }
+
   &-mainContent {
     flex: 1;
     margin: 24px 24px 0;

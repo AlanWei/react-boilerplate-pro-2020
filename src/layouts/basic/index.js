@@ -39,7 +39,7 @@ const { SubMenu } = Menu;
 const PREFIX_CLS = 'layout-basic';
 const BASE_URL = '/';
 
-const BasicLayout = ({ children }) => {
+const BasicLayout = ({ pageTitle, children }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -205,6 +205,17 @@ const BasicLayout = ({ children }) => {
     );
   };
 
+  const renderPageHeader = () => {
+    if (isEmpty(pageTitle)) {
+      return null;
+    }
+    return (
+      <div className={`${PREFIX_CLS}-pageHeader`}>
+        <div className={`${PREFIX_CLS}-pageTitle`}>{t(`${pageTitle}`)}</div>
+      </div>
+    );
+  };
+
   const renderPageContent = () => {
     return <div className={`${PREFIX_CLS}-mainContent`}>{children}</div>;
   };
@@ -213,6 +224,7 @@ const BasicLayout = ({ children }) => {
     return (
       <div className={`${PREFIX_CLS}-content`}>
         {renderHeader()}
+        {renderPageHeader()}
         {renderPageContent()}
       </div>
     );
@@ -246,7 +258,12 @@ const BasicLayout = ({ children }) => {
 };
 
 BasicLayout.propTypes = {
+  pageTitle: PropTypes.string,
   children: PropTypes.node.isRequired,
+};
+
+BasicLayout.defaultProps = {
+  pageTitle: '',
 };
 
 export default BasicLayout;

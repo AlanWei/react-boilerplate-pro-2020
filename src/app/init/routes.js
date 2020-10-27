@@ -59,7 +59,7 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout>
+        <BasicLayout pageTitle="pageTitle_outlets">
           <Outlets />
         </BasicLayout>
       </Suspense>
@@ -70,7 +70,7 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout>
+        <BasicLayout pageTitle="pageTitle_outletDetail">
           <OutletDetail />
         </BasicLayout>
       </Suspense>
