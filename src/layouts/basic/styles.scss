@@ -84,6 +84,29 @@
   &-noticeIcon {
     font-size: $font-size-lg;
   }
+  &-noticeItem {
+    margin-bottom: 12px;
+    padding: 4px 0;
+    width: 300px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &-noticeTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  &-noticeMessage {
+    font-size: $font-size-sm;
+    color: $font-color-secondary;
+  }
+  &-noticeEmpty {
+    width: 300px;
+    padding: 12px 0;
+    text-align: center;
+  }
 
   &-mainContent {
     flex: 1;

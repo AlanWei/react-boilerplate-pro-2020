@@ -6,17 +6,21 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
-import { Dropdown, Avatar, Menu, Popover } from 'antd';
+import { Dropdown, Avatar, Menu, Popover, Badge } from 'antd';
 import {
   UserOutlined,
   SettingOutlined,
   LogoutOutlined,
   BellOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import menuData from '../../app/init/menus';
 import Notification from '../../components/notification';
 import {
   appSlice,
+  getNotices,
+  deleteNotice,
+  selectNotices,
   selectNotificationTitle,
   selectNotificationContent,
 } from '../../app/init/appSlice';
@@ -42,7 +46,9 @@ const BasicLayout = ({ children }) => {
   // check login
   const isLogin = useSelector(selectIsLogin);
   useEffect(() => {
-    if (!isLogin) {
+    if (isLogin) {
+      dispatch(getNotices());
+    } else {
       dispatch(push('/login'));
     }
   }, [isLogin]);
@@ -59,8 +65,7 @@ const BasicLayout = ({ children }) => {
   // fetch user
   const user = useSelector(selectUser);
 
-  // TODO: fetch notices
-  const notices = [];
+  const notices = useSelector(selectNotices);
 
   const renderSiderHeader = () => (
     <Link to={BASE_URL} href={BASE_URL}>
@@ -123,6 +128,11 @@ const BasicLayout = ({ children }) => {
     );
   };
 
+  const handleDeleteNotice = (id) =>
+    dispatch(deleteNotice(id)).then(() => {
+      dispatch(getNotices());
+    });
+
   const noticeMenu = isEmpty(notices) ? (
     <div className={`${PREFIX_CLS}-noticeEmpty`}>
       {t('basicLayout_readall_notice')}
@@ -132,10 +142,12 @@ const BasicLayout = ({ children }) => {
       <div
         key={notice.id}
         className={`${PREFIX_CLS}-noticeItem`}
-        // onClick={() => deleteNotice(notice.id)}
         role="presentation"
       >
-        <div className={`${PREFIX_CLS}-noticeTitle`}>{notice.title}</div>
+        <div className={`${PREFIX_CLS}-noticeTitle`}>
+          <div>{notice.title}</div>
+          <DeleteOutlined onClick={() => handleDeleteNotice(notice.id)} />
+        </div>
         <div className={`${PREFIX_CLS}-noticeMessage`}>{notice.message}</div>
       </div>
     ))
@@ -179,7 +191,9 @@ const BasicLayout = ({ children }) => {
             trigger="click"
             content={noticeMenu}
           >
-            <BellOutlined className={`${PREFIX_CLS}-noticeIcon`} />
+            <Badge count={notices.length}>
+              <BellOutlined className={`${PREFIX_CLS}-noticeIcon`} />
+            </Badge>
           </Popover>
         </div>
         <Dropdown overlay={userMenu} placement="bottomRight">
