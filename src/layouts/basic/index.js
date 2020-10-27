@@ -20,7 +20,11 @@ import {
   selectNotificationTitle,
   selectNotificationContent,
 } from '../../app/init/appSlice';
-import { loginSlice, selectIsLogin } from '../../views/login/loginSlice';
+import {
+  loginSlice,
+  selectIsLogin,
+  selectUser,
+} from '../../views/login/loginSlice';
 import { formatMenuPath, formatSelectedKeys } from './menuUtils';
 
 import logo from '../../assets/logo.svg';
@@ -51,6 +55,9 @@ const BasicLayout = ({ children }) => {
   const selectedKeys = formatSelectedKeys(formatMenuPath(menuData), pathname);
 
   const [openKeys, setOpenKeys] = useState(selectedKeys);
+
+  // fetch user
+  const user = useSelector(selectUser);
 
   // TODO: fetch notices
   const notices = [];
@@ -177,8 +184,7 @@ const BasicLayout = ({ children }) => {
         </div>
         <Dropdown overlay={userMenu} placement="bottomRight">
           <div className={`${PREFIX_CLS}-avatarContainer`}>
-            {/* fetch user name */}
-            <Avatar className={`${PREFIX_CLS}-avatar`}>A</Avatar>
+            <Avatar className={`${PREFIX_CLS}-avatar`}>{user.name}</Avatar>
           </div>
         </Dropdown>
       </div>

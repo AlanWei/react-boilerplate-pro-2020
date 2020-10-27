@@ -6,7 +6,7 @@ function isLogin() {
 }
 
 function getUser() {
-  return Cookie.get('user');
+  return JSON.parse(Cookie.get('user'));
 }
 
 function login(user) {
