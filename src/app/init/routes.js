@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Loading from '../../views/loading';
 import NormalLayout from '../../layouts/normal';
@@ -10,6 +11,11 @@ const Outlets = lazy(() => import('../../views/outlets'));
 const OutletDetail = lazy(() => import('../../views/outletDetail'));
 
 const routes = [
+  {
+    path: '/',
+    exact: true,
+    component: () => <Redirect to="/dashboard/analysis/realtime" />,
+  },
   {
     path: '/login',
     exact: true,
@@ -59,7 +65,10 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout pageTitle="pageTitle_outlets">
+        <BasicLayout
+          pageTitle="pageTitle_outlets"
+          breadcrumb={['/', '/outlets']}
+        >
           <Outlets />
         </BasicLayout>
       </Suspense>
@@ -70,7 +79,10 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout pageTitle="pageTitle_outletDetail">
+        <BasicLayout
+          pageTitle="pageTitle_outletDetail"
+          breadcrumb={['/', '/outlets', '/outlets/:id']}
+        >
           <OutletDetail />
         </BasicLayout>
       </Suspense>

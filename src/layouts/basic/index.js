@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
-import { Dropdown, Avatar, Menu, Popover, Badge } from 'antd';
+import { Dropdown, Avatar, Menu, Popover, Badge, Breadcrumb } from 'antd';
 import {
   UserOutlined,
   SettingOutlined,
@@ -29,7 +29,11 @@ import {
   selectIsLogin,
   selectUser,
 } from '../../views/login/loginSlice';
-import { formatMenuPath, formatSelectedKeys } from './menuUtils';
+import {
+  formatMenuPath,
+  formatSelectedKeys,
+  generateBreadcrumb,
+} from './menuUtils';
 
 import logo from '../../assets/logo.svg';
 import './styles.scss';
@@ -39,7 +43,7 @@ const { SubMenu } = Menu;
 const PREFIX_CLS = 'layout-basic';
 const BASE_URL = '/';
 
-const BasicLayout = ({ pageTitle, children }) => {
+const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -205,12 +209,29 @@ const BasicLayout = ({ pageTitle, children }) => {
     );
   };
 
+  const renderBreadcrumb = () => {
+    const breadcrumbData = generateBreadcrumb(breadcrumb);
+
+    return (
+      <Breadcrumb className={`${PREFIX_CLS}-breadcrumb`}>
+        {map(breadcrumbData, (item) => (
+          <Breadcrumb.Item key={item.href}>
+            <Link href={item.href} to={item.href}>
+              {t(item.text)}
+            </Link>
+          </Breadcrumb.Item>
+        ))}
+      </Breadcrumb>
+    );
+  };
+
   const renderPageHeader = () => {
     if (isEmpty(pageTitle)) {
       return null;
     }
     return (
       <div className={`${PREFIX_CLS}-pageHeader`}>
+        {renderBreadcrumb()}
         <div className={`${PREFIX_CLS}-pageTitle`}>{t(`${pageTitle}`)}</div>
       </div>
     );
@@ -259,11 +280,13 @@ const BasicLayout = ({ pageTitle, children }) => {
 
 BasicLayout.propTypes = {
   pageTitle: PropTypes.string,
+  breadcrumb: PropTypes.array,
   children: PropTypes.node.isRequired,
 };
 
 BasicLayout.defaultProps = {
   pageTitle: '',
+  breadcrumb: [],
 };
 
 export default BasicLayout;

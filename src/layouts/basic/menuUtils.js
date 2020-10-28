@@ -3,6 +3,12 @@ import map from 'lodash/map';
 import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 
+const PATH_TO_TITLE_MAP = {
+  '/': 'pageTitle_homePage',
+  '/outlets': 'pageTitle_outlets',
+  '/outlets/:id': 'pageTitle_outletDetail',
+};
+
 const formatMenuPath = (data, parentPath = '/') =>
   map(data, (item) => {
     const result = {
@@ -55,4 +61,10 @@ const getMeunMatchKeys = (flatMenuKeys, paths) =>
 const formatSelectedKeys = (fullPathMenu, pathname) =>
   getMeunMatchKeys(getFlatMenuKeys(fullPathMenu), urlToList(pathname));
 
-export { formatMenuPath, formatSelectedKeys };
+const generateBreadcrumb = (breadcrumb) =>
+  map(breadcrumb, (path) => ({
+    text: PATH_TO_TITLE_MAP[path],
+    href: path,
+  }));
+
+export { formatMenuPath, formatSelectedKeys, generateBreadcrumb };
