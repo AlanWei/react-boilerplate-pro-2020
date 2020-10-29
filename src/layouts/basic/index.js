@@ -188,18 +188,19 @@ const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
   const renderHeader = () => {
     return (
       <div className={`${PREFIX_CLS}-header`}>
-        <div className={`${PREFIX_CLS}-notice`}>
-          <Popover
-            placement="bottomRight"
-            arrowPointAtCenter
-            trigger="click"
-            content={noticeMenu}
-          >
+        <Popover
+          placement="bottomRight"
+          arrowPointAtCenter
+          trigger="click"
+          content={noticeMenu}
+        >
+          <div className={`${PREFIX_CLS}-notice`}>
             <Badge count={notices.length}>
               <BellOutlined className={`${PREFIX_CLS}-noticeIcon`} />
             </Badge>
-          </Popover>
-        </div>
+          </div>
+        </Popover>
+
         <Dropdown overlay={userMenu} placement="bottomRight">
           <div className={`${PREFIX_CLS}-avatarContainer`}>
             <Avatar className={`${PREFIX_CLS}-avatar`}>{user.name}</Avatar>
@@ -241,12 +242,19 @@ const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
     return <div className={`${PREFIX_CLS}-mainContent`}>{children}</div>;
   };
 
+  const renderFooter = () => {
+    return (
+      <div className={`${PREFIX_CLS}-footer`}>{t('basicLayout_footer')}</div>
+    );
+  };
+
   const renderContent = () => {
     return (
       <div className={`${PREFIX_CLS}-content`}>
         {renderHeader()}
         {renderPageHeader()}
         {renderPageContent()}
+        {renderFooter()}
       </div>
     );
   };

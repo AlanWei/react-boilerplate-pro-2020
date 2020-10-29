@@ -1,48 +1,3 @@
-// color palettes
-$grey-1: #ffffff !default;
-$grey-2: #fafafa !default;
-$grey-3: #f5f5f5 !default;
-$grey-4: #e8e8e8 !default;
-$grey-5: #d9d9d9 !default;
-$grey-6: #bfbfbf !default;
-$grey-7: #8c8c8c !default;
-$grey-8: #595959 !default;
-$grey-9: #262626 !default;
-$grey-10: #000000 !default;
-
-$blue-1: #e6f7ff !default;
-$blue-2: #bae7ff !default;
-$blue-3: #91d5ff !default;
-$blue-4: #69c0ff !default;
-$blue-5: #40a9ff !default;
-$blue-6: #1890ff !default;
-$blue-7: #096dd9 !default;
-$blue-8: #0050b3 !default;
-$blue-9: #003a8c !default;
-$blue-10: #002766 !default;
-
-$red-1: #fff1f0 !default;
-$red-2: #ffccc7 !default;
-$red-3: #ffa39e !default;
-$red-4: #ff7875 !default;
-$red-5: #ff4d4f !default;
-$red-6: #f5222d !default;
-$red-7: #cf1322 !default;
-$red-8: #a8071a !default;
-$red-9: #820014 !default;
-$red-10: #5c0011 !default;
-
-$green-1: #f6ffed !default;
-$green-2: #d9f7be !default;
-$green-3: #b7eb8f !default;
-$green-4: #95de64 !default;
-$green-5: #73d13d !default;
-$green-6: #52c41a !default;
-$green-7: #389e0d !default;
-$green-8: #237804 !default;
-$green-9: #135200 !default;
-$green-10: #092b00 !default;
-
 // font
 $font-size-base: 14px !default;
 $font-size-sm: 12px !default;
@@ -74,7 +29,6 @@ $z-index-1: 9;
 $z-index-2: 99;
 $z-index-3: 999;
 
-// temp
 // General color scheme
 $ui-white: #fff !default;
 $ui-white-darken-2: #f5f5f5 !default;
@@ -86,17 +40,17 @@ $ui-black: #40485a !default;
 $ui-black-lighten: #5a6274 !default;
 $ui-black-darken: #272f41 !default;
 
-$ui-green: #3ac88e !default;
-$ui-green-lighten: #54e2a8 !default;
-$ui-green-darken: #21af75 !default;
+$ui-green: #52c41a !default;
+$ui-green-lighten: #f6ffed !default;
+$ui-green-darken: #135200 !default;
 
-$ui-red: #ff4e4e !default;
-$ui-red-lighten: #ff6868 !default;
-$ui-red-darken: #e63535 !default;
+$ui-red: #f5222d !default;
+$ui-red-lighten: #fff1f0 !default;
+$ui-red-darken: #820014 !default;
 
-$ui-blue: #286fdc !default;
-$ui-blue-lighten: #4289f6 !default;
-$ui-blue-darken: #0f56c3 !default;
+$ui-blue: #1890ff !default;
+$ui-blue-lighten: #e6f7ff !default;
+$ui-blue-darken: #003a8c !default;
 
 // Aliases
 $ui-text: $ui-black !default;

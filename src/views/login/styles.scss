@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import '../../styles/variables';
 
 .view-login {
   display: flex;
@@ -43,7 +43,7 @@
   &-intlItem {
     cursor: pointer;
     &-active {
-      color: $blue-5;
+      color: $ui-blue;
     }
   }
   &-intlSwitchSeparator {
@@ -52,6 +52,6 @@
   &-errorMsg {
     text-align: center;
     margin-top: 12px;
-    color: $red-6;
+    color: $ui-red;
   }
 }
