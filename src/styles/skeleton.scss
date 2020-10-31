@@ -1,55 +1,55 @@
 @import 'variables';
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 ::scrollbar {
-	display: none;
+  display: none;
 }
 
 ::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 
 h1 {
-	font-size: 20px;
-	margin: 0;
+  font-size: $font-size-xl;
+  margin: 0;
 }
 
 h2 {
-	font-size: 14px;
-	margin: 0;
+  font-size: 14px;
+  margin: 0;
 }
 
 button {
-	&:focus {
-		outline: none;
-	}
+  &:focus {
+    outline: none;
+  }
 }
 
 a {
-	text-decoration: none;
-	color: $ui-text;
+  text-decoration: none;
+  color: $ui-text;
 }
 
 ul {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 li {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 div {
-	line-height: 18px;
+  line-height: 18px;
 }
 
 input {
-	-webkit-appearance: none;
-	&:focus {
-		outline: none;
-	}
+  -webkit-appearance: none;
+  &:focus {
+    outline: none;
+  }
 }

@@ -14,8 +14,6 @@ import logo from '../../assets/logo.svg';
 import './styles.scss';
 
 const PREFIX_CLS = 'view-login';
-const ENGLISH = 'English';
-const CHINESE = '中文';
 
 const Login = () => {
   // i18n
@@ -105,7 +103,7 @@ const Login = () => {
         onClick={() => i18n.changeLanguage('en')}
         role="presentation"
       >
-        {ENGLISH}
+        {t('english')}
       </span>
       <span className={`${PREFIX_CLS}-intlSwitchSeparator`}>|</span>
       <span
@@ -116,7 +114,7 @@ const Login = () => {
         onClick={() => i18n.changeLanguage('zh')}
         role="presentation"
       >
-        {CHINESE}
+        {t('chinese')}
       </span>
     </div>
   );

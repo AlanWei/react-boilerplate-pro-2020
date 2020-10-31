@@ -14,7 +14,7 @@
       display: flex;
       align-items: center;
       background: #002140;
-      height: 64px;
+      height: 48px;
       padding-left: 24px;
     }
     &-logo {
@@ -24,7 +24,7 @@
     &-appName {
       color: #ffffff;
       font-weight: bold;
-      font-size: 20px;
+      font-size: $font-size-xl;
     }
     &-body {
       flex: 1;
@@ -44,32 +44,35 @@
   }
   &-header {
     width: 100%;
-    height: 64px;
+    height: 48px;
     background: $ui-white;
     box-shadow: $shadow-1-down-light;
     display: flex;
     justify-content: flex-end;
     padding-right: 12px;
     z-index: $z-index-1;
+    &-icon {
+      font-size: $font-size-xl;
+    }
+    &-menuItem {
+      min-width: 160px;
+      &-active {
+        background-color: $ui-blue-lighten;
+      }
+    }
+    &-menuIcon {
+      margin-right: 12px;
+    }
   }
   &-avatarContainer {
     height: 100%;
     display: flex;
     align-items: center;
     padding: 0 12px;
-    &:hover {
-      cursor: pointer;
-      background: $ui-blue-lighten;
-    }
+    cursor: pointer;
   }
   &-avatar {
     background-color: $ui-blue;
-  }
-  &-userMenuItem {
-    min-width: 160px;
-  }
-  &-userMenuIcon {
-    margin-right: 12px;
   }
 
   &-notice {
@@ -77,12 +80,12 @@
     align-items: center;
     padding: 0 12px;
     cursor: pointer;
-    &:hover {
-      background: $ui-blue-lighten;
-    }
   }
-  &-noticeIcon {
-    font-size: $font-size-lg;
+  &-intl {
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 4px;
+    cursor: pointer;
   }
   &-noticeItem {
     margin-bottom: 12px;

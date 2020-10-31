@@ -1,4 +1,5 @@
-const axios = require('axios');
+import axios from 'axios';
+import get from 'lodash/get';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -16,7 +17,9 @@ const instance = axios.create({
 const standardResponse = (response) => Promise.resolve(response.data);
 
 const errorResponse = (error) =>
-  Promise.reject(new Error(error.response.data.error));
+  Promise.reject(
+    new Error(get(error, 'response.data.error', 'Something went wrong')),
+  );
 
 const api = () => {
   let opt = {

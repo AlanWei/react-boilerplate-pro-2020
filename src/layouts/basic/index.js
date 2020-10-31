@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import clsx from 'clsx';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import { Dropdown, Avatar, Menu, Popover, Badge, Breadcrumb } from 'antd';
@@ -13,7 +14,9 @@ import {
   LogoutOutlined,
   BellOutlined,
   DeleteOutlined,
+  TranslationOutlined,
 } from '@ant-design/icons';
+import i18n from '../../i18n';
 import menuData from '../../app/init/menus';
 import Notification from '../../components/notification';
 import {
@@ -47,6 +50,7 @@ const BASE_URL = '/';
 const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const currentLanguage = i18n.language;
 
   // check login
   const isLogin = useSelector(selectIsLogin);
@@ -169,24 +173,47 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
 
   const userMenu = (
     <Menu>
-      <Menu.Item disabled className={`${PREFIX_CLS}-userMenuItem`}>
+      <Menu.Item disabled className={`${PREFIX_CLS}-header-menuItem`}>
         <div>
-          <UserOutlined className={`${PREFIX_CLS}-userMenuIcon`} />
+          <UserOutlined className={`${PREFIX_CLS}-header-menuIcon`} />
           <span>{t('basicLayout_profile')}</span>
         </div>
       </Menu.Item>
-      <Menu.Item disabled className={`${PREFIX_CLS}-userMenuItem`}>
+      <Menu.Item disabled className={`${PREFIX_CLS}-header-menuItem`}>
         <div>
-          <SettingOutlined className={`${PREFIX_CLS}-userMenuIcon`} />
+          <SettingOutlined className={`${PREFIX_CLS}-header-menuIcon`} />
           <span>{t('basicLayout_setting')}</span>
         </div>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item className={`${PREFIX_CLS}-userMenuItem`}>
+      <Menu.Item className={`${PREFIX_CLS}-header-menuItem`}>
         <div role="presentation" onClick={handleLogout}>
-          <LogoutOutlined className={`${PREFIX_CLS}-userMenuIcon`} />
+          <LogoutOutlined className={`${PREFIX_CLS}-header-menuIcon`} />
           <span>{t('basicLayout_logout')}</span>
         </div>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const intlMenu = (
+    <Menu>
+      <Menu.Item
+        className={clsx({
+          [`${PREFIX_CLS}-header-menuItem`]: true,
+          [`${PREFIX_CLS}-header-menuItem-active`]: currentLanguage === 'en',
+        })}
+        onClick={() => i18n.changeLanguage('en')}
+      >
+        {t('english')}
+      </Menu.Item>
+      <Menu.Item
+        className={clsx({
+          [`${PREFIX_CLS}-header-menuItem`]: true,
+          [`${PREFIX_CLS}-header-menuItem-active`]: currentLanguage === 'zh',
+        })}
+        onClick={() => i18n.changeLanguage('zh')}
+      >
+        {t('chinese')}
       </Menu.Item>
     </Menu>
   );
@@ -202,7 +229,7 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
         >
           <div className={`${PREFIX_CLS}-notice`}>
             <Badge count={notices.length}>
-              <BellOutlined className={`${PREFIX_CLS}-noticeIcon`} />
+              <BellOutlined className={`${PREFIX_CLS}-header-icon`} />
             </Badge>
           </div>
         </Popover>
@@ -210,6 +237,12 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
         <Dropdown overlay={userMenu} placement="bottomRight">
           <div className={`${PREFIX_CLS}-avatarContainer`}>
             <Avatar className={`${PREFIX_CLS}-avatar`}>{user.name}</Avatar>
+          </div>
+        </Dropdown>
+
+        <Dropdown overlay={intlMenu} placement="bottomRight">
+          <div className={`${PREFIX_CLS}-intl`}>
+            <TranslationOutlined className={`${PREFIX_CLS}-header-icon`} />
           </div>
         </Dropdown>
       </div>

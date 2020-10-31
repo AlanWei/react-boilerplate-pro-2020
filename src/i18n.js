@@ -7,6 +7,8 @@ const resources = {
   en: {
     translation: {
       appName: 'React App Pro',
+      english: 'English',
+      chinese: '简体中文',
       siderMenu_dashboard: 'Dashboard',
       siderMenu_analysis: 'Analysis',
       siderMenu_realtime: 'Real-time',
@@ -45,6 +47,8 @@ const resources = {
   zh: {
     translation: {
       appName: 'React 中后台应用',
+      english: 'English',
+      chinese: '简体中文',
       siderMenu_dashboard: '仪表盘',
       siderMenu_analysis: '分析页',
       siderMenu_realtime: '实时数据',
@@ -52,7 +56,7 @@ const resources = {
       siderMenu_workplace: '工作台',
       siderMenu_outlets: '门店管理',
       siderMenu_exception: '异常页',
-      siderMenu_403: '403 禁止访问',
+      siderMenu_403: '403 无权限',
       siderMenu_404: '404 不存在',
       pageTitle_homePage: '首页',
       pageTitle_outlets: '门店列表',
