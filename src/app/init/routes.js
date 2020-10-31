@@ -9,6 +9,12 @@ const Login = lazy(() => import('../../views/login'));
 const WIP = lazy(() => import('../../views/workingInProgress'));
 const Outlets = lazy(() => import('../../views/outlets'));
 const OutletDetail = lazy(() => import('../../views/outletDetail'));
+const Unauthorised = lazy(() => import('../../views/unauthorised'));
+const NotFound = lazy(() => import('../../views/notFound'));
+
+const USER_LEVEL_PERMISSION = ['god', 'admin', 'user'];
+const ADMIN_LEVEL_PERMISSION = ['god', 'admin'];
+const GOD_LEVEL_PERMISSION = ['god'];
 
 const routes = [
   {
@@ -32,7 +38,7 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout>
+        <BasicLayout permissionList={USER_LEVEL_PERMISSION}>
           <WIP />
         </BasicLayout>
       </Suspense>
@@ -43,7 +49,7 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout>
+        <BasicLayout permissionList={ADMIN_LEVEL_PERMISSION}>
           <WIP />
         </BasicLayout>
       </Suspense>
@@ -54,7 +60,7 @@ const routes = [
     exact: true,
     component: () => (
       <Suspense fallback={<Loading />}>
-        <BasicLayout>
+        <BasicLayout permissionList={GOD_LEVEL_PERMISSION}>
           <WIP />
         </BasicLayout>
       </Suspense>
@@ -68,6 +74,7 @@ const routes = [
         <BasicLayout
           pageTitle="pageTitle_outlets"
           breadcrumb={['/', '/outlets']}
+          permissionList={USER_LEVEL_PERMISSION}
         >
           <Outlets />
         </BasicLayout>
@@ -82,6 +89,7 @@ const routes = [
         <BasicLayout
           pageTitle="pageTitle_outletDetail"
           breadcrumb={['/', '/outlets', '/outlets/:id']}
+          permissionList={USER_LEVEL_PERMISSION}
         >
           <OutletDetail />
         </BasicLayout>
@@ -89,10 +97,23 @@ const routes = [
     ),
   },
   {
+    path: '/exception/403',
+    exact: true,
     component: () => (
-      <BasicLayout>
-        <div>404</div>
-      </BasicLayout>
+      <Suspense fallback={<Loading />}>
+        <BasicLayout>
+          <Unauthorised />
+        </BasicLayout>
+      </Suspense>
+    ),
+  },
+  {
+    component: () => (
+      <Suspense fallback={<Loading />}>
+        <BasicLayout>
+          <NotFound />
+        </BasicLayout>
+      </Suspense>
     ),
   },
 ];

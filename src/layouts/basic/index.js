@@ -34,6 +34,7 @@ import {
   formatSelectedKeys,
   generateBreadcrumb,
 } from './menuUtils';
+import checkPermissions from './permissionUtils';
 
 import logo from '../../assets/logo.svg';
 import './styles.scss';
@@ -43,7 +44,7 @@ const { SubMenu } = Menu;
 const PREFIX_CLS = 'layout-basic';
 const BASE_URL = '/';
 
-const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
+const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -57,6 +58,18 @@ const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
     }
   }, [isLogin]);
 
+  const notices = useSelector(selectNotices);
+
+  // check permission
+  const user = useSelector(selectUser);
+  const { authorities } = user;
+  const hasPermission = checkPermissions(authorities, permissionList);
+  useEffect(() => {
+    if (!hasPermission) {
+      dispatch(push('/exception/403'));
+    }
+  }, [hasPermission]);
+
   // pathname
   const pathname = useSelector((state) => {
     return state.router.location.pathname;
@@ -65,11 +78,6 @@ const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
   const selectedKeys = formatSelectedKeys(formatMenuPath(menuData), pathname);
 
   const [openKeys, setOpenKeys] = useState(selectedKeys);
-
-  // fetch user
-  const user = useSelector(selectUser);
-
-  const notices = useSelector(selectNotices);
 
   const renderSiderHeader = () => (
     <Link to={BASE_URL} href={BASE_URL}>
@@ -289,12 +297,14 @@ const BasicLayout = ({ pageTitle, breadcrumb, children }) => {
 BasicLayout.propTypes = {
   pageTitle: PropTypes.string,
   breadcrumb: PropTypes.array,
+  permissionList: PropTypes.array,
   children: PropTypes.node.isRequired,
 };
 
 BasicLayout.defaultProps = {
   pageTitle: '',
   breadcrumb: [],
+  permissionList: [],
 };
 
 export default BasicLayout;

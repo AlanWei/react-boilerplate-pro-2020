@@ -12,7 +12,7 @@ import './styles.scss';
 
 const PREFIX_CLS = 'view-outletDetail';
 
-function OutletDetail() {
+const OutletDetail = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -80,6 +80,6 @@ function OutletDetail() {
       </Button>
     </div>
   );
-}
+};
 
 export default OutletDetail;

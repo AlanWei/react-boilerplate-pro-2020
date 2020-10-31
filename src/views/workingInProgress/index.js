@@ -6,7 +6,7 @@ import './styles.scss';
 
 const PREFIX_CLS = 'view-workingInProgress';
 
-function WorkingInProgress() {
+const WorkingInProgress = () => {
   const { t } = useTranslation();
 
   return (
@@ -34,6 +34,6 @@ function WorkingInProgress() {
       </div>
     </div>
   );
-}
+};
 
 export default WorkingInProgress;
