@@ -50,25 +50,23 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
 
   // check login
   const isLogin = useSelector(selectIsLogin);
+  const user = useSelector(selectUser);
+  const notices = useSelector(selectNotices);
+
   useEffect(() => {
     if (isLogin) {
+      // fetch notices
       dispatch(getNotices());
+      // check permission
+      const { authorities } = user;
+      const hasPermission = checkPermissions(authorities, permissionList);
+      if (!hasPermission) {
+        dispatch(push('/exception/403'));
+      }
     } else {
       dispatch(push('/login'));
     }
   }, [isLogin]);
-
-  const notices = useSelector(selectNotices);
-
-  // check permission
-  const user = useSelector(selectUser);
-  const { authorities } = user;
-  const hasPermission = checkPermissions(authorities, permissionList);
-  useEffect(() => {
-    if (!hasPermission) {
-      dispatch(push('/exception/403'));
-    }
-  }, [hasPermission]);
 
   // pathname
   const pathname = useSelector((state) => {
