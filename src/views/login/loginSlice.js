@@ -23,6 +23,9 @@ export const loginSlice = createSlice({
       state.isLogin = false;
       state.user = {};
     },
+    resetLoginErrorMsg: (state) => {
+      state.error = '';
+    },
   },
   extraReducers: {
     [loginUser.pending]: (state) => {

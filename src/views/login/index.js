@@ -7,8 +7,14 @@ import { Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import isEmpty from 'lodash/isEmpty';
 
-import { loginUser, selectError, selectIsLogin } from './loginSlice';
+import {
+  loginSlice,
+  loginUser,
+  selectError,
+  selectIsLogin,
+} from './loginSlice';
 import i18n from '../../i18n';
+import { DEFAULT_NOTIFICATION_TIMEOUT } from '../../app/const';
 
 import logo from '../../assets/logo.svg';
 import './styles.scss';
@@ -42,7 +48,12 @@ const Login = () => {
         username,
         password,
       }),
-    );
+    ).then(() => {
+      setTimeout(
+        () => dispatch(loginSlice.actions.resetLoginErrorMsg()),
+        DEFAULT_NOTIFICATION_TIMEOUT,
+      );
+    });
   };
 
   const renderErrorMsg = () => {
