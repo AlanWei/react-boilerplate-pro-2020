@@ -13,7 +13,7 @@ function Notification({ title, content, onDismiss, timeout }) {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  });
 
   return (
     <div className={PREFIX_CLS}>

@@ -15,7 +15,7 @@ const Outlets = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOutlets());
-  }, []);
+  });
 
   const outlets = useSelector(selectOutlets);
 
