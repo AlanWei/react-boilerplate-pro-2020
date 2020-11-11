@@ -56,6 +56,8 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
   const isLogin = useSelector(selectIsLogin);
   const user = useSelector(selectUser);
   const notices = useSelector(selectNotices);
+  const notificationTitle = useSelector(selectNotificationTitle);
+  const notificationContent = useSelector(selectNotificationContent);
 
   useEffect(() => {
     if (isLogin) {
@@ -70,7 +72,7 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
     } else {
       dispatch(push('/login'));
     }
-  }, [isLogin]);
+  }, [isLogin, dispatch, permissionList, user]);
 
   // pathname
   const pathname = useSelector((state) => {
@@ -299,18 +301,16 @@ const BasicLayout = ({ pageTitle, breadcrumb, permissionList, children }) => {
   };
 
   const renderNotification = () => {
-    const title = useSelector(selectNotificationTitle);
-    const content = useSelector(selectNotificationContent);
     const { resetNotification } = appSlice.actions;
 
-    if (isEmpty(title) && isEmpty(content)) {
+    if (isEmpty(notificationTitle) && isEmpty(notificationContent)) {
       return null;
     }
 
     return (
       <Notification
-        title={title}
-        content={content}
+        title={notificationTitle}
+        content={notificationContent}
         onDismiss={() => dispatch(resetNotification())}
       />
     );

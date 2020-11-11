@@ -25,7 +25,7 @@ const OutletDetail = () => {
   const outletId = params.id;
   useEffect(() => {
     dispatch(getOutlet(outletId));
-  }, [outletId]);
+  }, [outletId, dispatch]);
 
   const outlet = useSelector(selectOutlet);
 

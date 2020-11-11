@@ -36,7 +36,7 @@ const Login = () => {
     if (isLogin) {
       dispatch(push('/outlets'));
     }
-  }, [isLogin]);
+  }, [isLogin, dispatch]);
 
   // state
   const [username, setUsername] = useState('');
